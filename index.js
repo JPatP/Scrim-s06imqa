@@ -31,19 +31,26 @@ summaryLengthInput.addEventListener('input', updateSummaryLengthText)
 // Button Event Handlers
 async function summarize() {
   try {
-    const summaryLength = summaryLengthInput.value
+    const summaryLength = Math.min(Math.max(summaryLengthInput.value, 10), 500)
     const text = textInputArea.value
+
+    if (!text.trim()) {
+      showCopyFeedback('❗ Please enter text first', 'failure')
+      return
+    }
+
     const messages = [
       {
-        'role': 'user',
-        'content': [
+        role: 'user',
+        content: [
           {
-            'type': 'text',
-            'text': `Summarize this text. Limit the summary length to ${summaryLength} words: ${text}`
+            type: 'text',
+            text: `Summarize this text. Limit the summary length to ${summaryLength} words: ${text}`
           }
         ]
       }
     ]
+
     const options = {
       method: 'POST',
       headers: {
@@ -51,14 +58,18 @@ async function summarize() {
       },
       body: JSON.stringify(messages)
     }
+
     startLoading()
     const response = await fetch(workerUrl, options)
     endLoading()
-    const summary = await response.json()
+
+    const result = await response.json()
+
     if (!response.ok) {
-      throw new Error(summary.error)
+      throw new Error(result.error)
     }
-    summaryOutputArea.value = summary
+
+    summaryOutputArea.value = result.summary
     enableSummayOutputArea()
     enableCopyButton()
     focusOnCopyButton()

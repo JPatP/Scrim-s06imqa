@@ -34,7 +34,7 @@ export default {
         messages,
       })
 
-      return new Response(JSON.stringify(response.content[0].text), {
+      return new Response(JSON.stringify({ summary: response.content[0].text }), {
         status: 200,
         headers: {
           ...corsHeaders,
