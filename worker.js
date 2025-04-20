@@ -11,8 +11,17 @@ export default {
       'Access-Control-Allow-Headers': 'Content-Type',
       'Access-Control-Max-Age': '86400',
     }
+    // Handle direct GET requests (browser visits)
+if (request.method === 'GET') {
+    return new Response('👋 Welcome! This is the Claude-powered summarizer backend. Send a POST request with text to get a summary.', {
+      status: 200,
+      headers: {
+        ...corsHeaders,
+        'Content-Type': 'text/plain',
+      },
+    })
+  }
 
-    // Handle preflight OPTIONS
     if (request.method === 'OPTIONS') {
       return new Response(null, {
         status: 204,
