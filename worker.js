@@ -11,11 +11,12 @@ export default {
     async fetch(request, env, ctx) {
         // Handle OPTIONS request for CORS preflight
         if (request.method === 'OPTIONS') {
-            return new Response(null, { 
-                status: 204, 
-                headers: corsHeaders 
+            // Preflight CORS request
+            return new Response('OK', {
+              status: 200,
+              headers: corsHeaders,
             })
-        }
+          }
 
         try {
             const anthropic = new Anthropic({
