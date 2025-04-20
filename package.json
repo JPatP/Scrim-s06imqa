@@ -1,0 +1,14 @@
+{
+  "name": "Scrim-s06imqa",
+  "description": "https://scrimba.com/claude-ai-c09gsmkso3/~0ynq/s0rnkpf9uo/head",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vite": "latest"
+  },
+  "devDependencies": {}
+}
